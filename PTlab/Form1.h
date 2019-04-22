@@ -99,7 +99,7 @@ namespace CppCLR_WinformsProjekt {
 	private: System::Windows::Forms::CheckBox^  checkBox;
 	private: System::Windows::Forms::DataGridView^  DataGrid3;
 	private: ZedGraph::ZedGraphControl^  Graph2;
-	private: System::Windows::Forms::Button^  button2;
+
     private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column4;
     private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column5;
     private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column6;
@@ -113,6 +113,23 @@ namespace CppCLR_WinformsProjekt {
     private: System::Windows::Forms::Label^  label16;
     private: System::Windows::Forms::Label^  labeli;
     private: System::Windows::Forms::Label^  label17;
+    private: System::Windows::Forms::DataGridView^  DataGrid6;
+    private: System::Windows::Forms::DataGridView^  DataGrid5;
+private: System::Windows::Forms::TextBox^  textBoxK;
+
+    private: System::Windows::Forms::Label^  label18;
+    private: System::Windows::Forms::Button^  button2;
+private: System::Windows::Forms::Label^  labelRes;
+
+
+
+private: System::Windows::Forms::Label^  label20;
+private: System::Windows::Forms::TextBox^  textBoxA;
+
+private: System::Windows::Forms::Label^  label19;
+private: System::Windows::Forms::Label^  labelH0;
+
+private: System::Windows::Forms::Label^  label21;
 
 
 
@@ -209,6 +226,8 @@ namespace CppCLR_WinformsProjekt {
             this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
             this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
             this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+            this->labeli = (gcnew System::Windows::Forms::Label());
+            this->label17 = (gcnew System::Windows::Forms::Label());
             this->labelMax = (gcnew System::Windows::Forms::Label());
             this->label16 = (gcnew System::Windows::Forms::Label());
             this->label15 = (gcnew System::Windows::Forms::Label());
@@ -219,9 +238,17 @@ namespace CppCLR_WinformsProjekt {
             this->DataGrid3 = (gcnew System::Windows::Forms::DataGridView());
             this->Graph2 = (gcnew ZedGraph::ZedGraphControl());
             this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+            this->labelH0 = (gcnew System::Windows::Forms::Label());
+            this->label21 = (gcnew System::Windows::Forms::Label());
+            this->labelRes = (gcnew System::Windows::Forms::Label());
+            this->label20 = (gcnew System::Windows::Forms::Label());
+            this->textBoxA = (gcnew System::Windows::Forms::TextBox());
+            this->label19 = (gcnew System::Windows::Forms::Label());
+            this->DataGrid6 = (gcnew System::Windows::Forms::DataGridView());
+            this->DataGrid5 = (gcnew System::Windows::Forms::DataGridView());
+            this->textBoxK = (gcnew System::Windows::Forms::TextBox());
+            this->label18 = (gcnew System::Windows::Forms::Label());
             this->button2 = (gcnew System::Windows::Forms::Button());
-            this->label17 = (gcnew System::Windows::Forms::Label());
-            this->labeli = (gcnew System::Windows::Forms::Label());
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid))->BeginInit();
             this->groupBox1->SuspendLayout();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -231,6 +258,9 @@ namespace CppCLR_WinformsProjekt {
             this->tabPage1->SuspendLayout();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid4))->BeginInit();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid3))->BeginInit();
+            this->tabPage2->SuspendLayout();
+            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid6))->BeginInit();
+            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid5))->BeginInit();
             this->SuspendLayout();
             // 
             // label1
@@ -648,6 +678,24 @@ namespace CppCLR_WinformsProjekt {
             this->tabPage1->Text = L"Гистограмма";
             this->tabPage1->UseVisualStyleBackColor = true;
             // 
+            // labeli
+            // 
+            this->labeli->AutoSize = true;
+            this->labeli->Location = System::Drawing::Point(1228, 414);
+            this->labeli->Name = L"labeli";
+            this->labeli->Size = System::Drawing::Size(13, 20);
+            this->labeli->TabIndex = 17;
+            this->labeli->Text = L" ";
+            // 
+            // label17
+            // 
+            this->label17->AutoSize = true;
+            this->label17->Location = System::Drawing::Point(1009, 414);
+            this->label17->Name = L"label17";
+            this->label17->Size = System::Drawing::Size(212, 20);
+            this->label17->TabIndex = 16;
+            this->label17->Text = L"Соответствует отрезку i = ";
+            // 
             // labelMax
             // 
             this->labelMax->AutoSize = true;
@@ -746,6 +794,16 @@ namespace CppCLR_WinformsProjekt {
             // 
             // tabPage2
             // 
+            this->tabPage2->Controls->Add(this->labelH0);
+            this->tabPage2->Controls->Add(this->label21);
+            this->tabPage2->Controls->Add(this->labelRes);
+            this->tabPage2->Controls->Add(this->label20);
+            this->tabPage2->Controls->Add(this->textBoxA);
+            this->tabPage2->Controls->Add(this->label19);
+            this->tabPage2->Controls->Add(this->DataGrid6);
+            this->tabPage2->Controls->Add(this->DataGrid5);
+            this->tabPage2->Controls->Add(this->textBoxK);
+            this->tabPage2->Controls->Add(this->label18);
             this->tabPage2->Location = System::Drawing::Point(4, 29);
             this->tabPage2->Name = L"tabPage2";
             this->tabPage2->Padding = System::Windows::Forms::Padding(3);
@@ -754,33 +812,113 @@ namespace CppCLR_WinformsProjekt {
             this->tabPage2->Text = L"Проверка гипотезы о виде распределения\r";
             this->tabPage2->UseVisualStyleBackColor = true;
             // 
+            // labelH0
+            // 
+            this->labelH0->AutoSize = true;
+            this->labelH0->Location = System::Drawing::Point(870, 13);
+            this->labelH0->Name = L"labelH0";
+            this->labelH0->Size = System::Drawing::Size(0, 20);
+            this->labelH0->TabIndex = 9;
+            // 
+            // label21
+            // 
+            this->label21->AutoSize = true;
+            this->label21->Location = System::Drawing::Point(545, 13);
+            this->label21->Name = L"label21";
+            this->label21->Size = System::Drawing::Size(319, 20);
+            this->label21->TabIndex = 8;
+            this->label21->Text = L"H0 - выборочные значения подчиняются";
+            // 
+            // labelRes
+            // 
+            this->labelRes->AutoSize = true;
+            this->labelRes->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
+            this->labelRes->Location = System::Drawing::Point(178, 397);
+            this->labelRes->Name = L"labelRes";
+            this->labelRes->Size = System::Drawing::Size(22, 25);
+            this->labelRes->TabIndex = 7;
+            this->labelRes->Text = L"  ";
+            // 
+            // label20
+            // 
+            this->label20->AutoSize = true;
+            this->label20->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+                static_cast<System::Byte>(204)));
+            this->label20->Location = System::Drawing::Point(15, 393);
+            this->label20->Name = L"label20";
+            this->label20->Size = System::Drawing::Size(144, 29);
+            this->label20->TabIndex = 6;
+            this->label20->Text = L"Результат: ";
+            // 
+            // textBoxA
+            // 
+            this->textBoxA->Location = System::Drawing::Point(459, 7);
+            this->textBoxA->Name = L"textBoxA";
+            this->textBoxA->Size = System::Drawing::Size(63, 26);
+            this->textBoxA->TabIndex = 5;
+            this->textBoxA->Text = L"0,1";
+            // 
+            // label19
+            // 
+            this->label19->AutoSize = true;
+            this->label19->Location = System::Drawing::Point(286, 12);
+            this->label19->Name = L"label19";
+            this->label19->Size = System::Drawing::Size(167, 20);
+            this->label19->TabIndex = 4;
+            this->label19->Text = L"Уровень значимости";
+            // 
+            // DataGrid6
+            // 
+            this->DataGrid6->AllowUserToAddRows = false;
+            this->DataGrid6->AllowUserToDeleteRows = false;
+            this->DataGrid6->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+            this->DataGrid6->Location = System::Drawing::Point(10, 214);
+            this->DataGrid6->Name = L"DataGrid6";
+            this->DataGrid6->ReadOnly = true;
+            this->DataGrid6->RowTemplate->Height = 28;
+            this->DataGrid6->Size = System::Drawing::Size(1438, 150);
+            this->DataGrid6->TabIndex = 3;
+            // 
+            // DataGrid5
+            // 
+            this->DataGrid5->AllowUserToAddRows = false;
+            this->DataGrid5->AllowUserToDeleteRows = false;
+            this->DataGrid5->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+            this->DataGrid5->Location = System::Drawing::Point(10, 50);
+            this->DataGrid5->Name = L"DataGrid5";
+            this->DataGrid5->RowHeadersVisible = false;
+            this->DataGrid5->RowTemplate->Height = 28;
+            this->DataGrid5->Size = System::Drawing::Size(1438, 150);
+            this->DataGrid5->TabIndex = 2;
+            // 
+            // textBoxK
+            // 
+            this->textBoxK->Location = System::Drawing::Point(164, 7);
+            this->textBoxK->Name = L"textBoxK";
+            this->textBoxK->Size = System::Drawing::Size(56, 26);
+            this->textBoxK->TabIndex = 1;
+            this->textBoxK->Text = L"10";
+            this->textBoxK->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::textBoxK_KeyDown);
+            // 
+            // label18
+            // 
+            this->label18->AutoSize = true;
+            this->label18->Location = System::Drawing::Point(6, 13);
+            this->label18->Name = L"label18";
+            this->label18->Size = System::Drawing::Size(152, 20);
+            this->label18->TabIndex = 0;
+            this->label18->Text = L"Число интервалов";
+            // 
             // button2
             // 
             this->button2->Location = System::Drawing::Point(21, 925);
             this->button2->Name = L"button2";
             this->button2->Size = System::Drawing::Size(320, 62);
             this->button2->TabIndex = 26;
-            this->button2->Text = L"Построить гистрограмму";
+            this->button2->Text = L"Проверить гипотезу";
             this->button2->UseVisualStyleBackColor = true;
             this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
-            // 
-            // label17
-            // 
-            this->label17->AutoSize = true;
-            this->label17->Location = System::Drawing::Point(1009, 414);
-            this->label17->Name = L"label17";
-            this->label17->Size = System::Drawing::Size(212, 20);
-            this->label17->TabIndex = 16;
-            this->label17->Text = L"Соответствует отрезку i = ";
-            // 
-            // labeli
-            // 
-            this->labeli->AutoSize = true;
-            this->labeli->Location = System::Drawing::Point(1228, 414);
-            this->labeli->Name = L"labeli";
-            this->labeli->Size = System::Drawing::Size(13, 20);
-            this->labeli->TabIndex = 17;
-            this->labeli->Text = L" ";
             // 
             // Form1
             // 
@@ -813,6 +951,10 @@ namespace CppCLR_WinformsProjekt {
             this->tabPage1->PerformLayout();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid4))->EndInit();
             (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid3))->EndInit();
+            this->tabPage2->ResumeLayout(false);
+            this->tabPage2->PerformLayout();
+            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid6))->EndInit();
+            (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DataGrid5))->EndInit();
             this->ResumeLayout(false);
             this->PerformLayout();
 
@@ -850,6 +992,13 @@ private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e)
 	}
 	DataGrid3->Rows->Add();
 	DataGrid3->AutoResizeColumns();
+
+    //boundaries for x
+    for (int i = 0; i < Convert::ToInt32(textBoxK->Text) + 1; i++) {
+        DataGrid5->Columns->Add("Column_" + System::Convert::ToString(i), System::Convert::ToString(i));
+    }
+    DataGrid5->Rows->Add();
+    DataGrid5->AutoResizeColumns();
 }
 
 private: System::Void buttonCalc_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -857,7 +1006,7 @@ private: System::Void buttonCalc_Click(System::Object^  sender, System::EventArg
 	r.~RandValue();
 	new(&r) RandValue(Convert::ToDouble(textBoxM->Text), Convert::ToDouble(textBoxD->Text),
 		Convert::ToInt32(textBoxN->Text), Convert::ToInt32(textBoxE->Text), 
-		Convert::ToInt32(textBoxZ->Text));
+		Convert::ToInt32(textBoxZ->Text), Convert::ToInt32(textBoxK->Text));
 	//
 	label_l->Text = Convert::ToString(r.lambda);
 	label_off->Text = Convert::ToString(r.offset);
@@ -865,9 +1014,22 @@ private: System::Void buttonCalc_Click(System::Object^  sender, System::EventArg
 	outputValues(DataGrid, DataGrid2, r);
     fillSegments(DataGrid3, r);
     outputHist(DataGrid4, r);
+    fillBoundaries(DataGrid5, r);
+    outputQj(DataGrid6, r);
     labelMax->Text = Convert::ToString(r.maxErr);
     labeli->Text = Convert::ToString(r.ni);
+    if (r.n != 1) {
+        labelH0->Text = "нормальному распределению";
+    }
+    else 
+        labelH0->Text = "экспоненциальному распределению";
     drawAll(Graph, Graph2, r);
+
+    double FR0val = r.FR0(r.k - 1, r.R0);
+    if (FR0val > Convert::ToDouble(textBoxA->Text))
+        labelRes->Text = "R0 = " + Convert::ToString(r.R0) + "  F(R0) = " + Convert::ToString(FR0val) + " Гипотеза H0 принята";
+    else 
+        labelRes->Text = "R0 = " + Convert::ToString(r.R0) + "  F(R0) = " + Convert::ToString(FR0val) + " Гипотеза H0 отвергнута";
 }
 
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -890,8 +1052,8 @@ private: System::Void textBoxZ_KeyDown(System::Object^  sender, System::Windows:
         if (r.numExp != 0 && checkBox->Checked) {
             r.calcSegments();
             fillSegments(DataGrid3, r);
-            DataGrid4->Rows->Clear();
-            DataGrid4->Columns->Clear();
+           /* DataGrid4->Rows->Clear();
+            DataGrid4->Columns->Clear();*/
             outputHist(DataGrid4, r);
             clearGraph(Graph2);
             drawf(Graph2, r);
@@ -902,5 +1064,31 @@ private: System::Void textBoxZ_KeyDown(System::Object^  sender, System::Windows:
         }
     }
 }
+private: System::Void textBoxK_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+    if (e->KeyCode == Keys::Enter)
+    {
+        clearTable(DataGrid5);
+        r.setK(Convert::ToInt32(textBoxK->Text) + 1);
+        for (int i = 0; i < Convert::ToInt32(textBoxK->Text) + 1; i++) {
+            DataGrid5->Columns->Add("Column_" + System::Convert::ToString(i),
+                System::Convert::ToString(i));
+        }
+        DataGrid5->Rows->Add();
+        if (r.numExp != 0 && checkBox->Checked) {
+            r.calcBoundaries();
+            fillBoundaries(DataGrid5, r);
+            r.calcR0();
+            outputQj(DataGrid6, r);
+            labelRes->Text = "R0 = " + Convert::ToString(r.R0);
+            double FR0val = r.FR0(r.k - 1, r.R0);
+            if (FR0val > Convert::ToDouble(textBoxA->Text))
+                labelRes->Text = "R0 = " + Convert::ToString(r.R0) + "  F(R0) = " + Convert::ToString(FR0val) + " Гипотеза H0 принята";
+            else
+                labelRes->Text = "R0 = " + Convert::ToString(r.R0) + "  F(R0) = " + Convert::ToString(FR0val) + " Гипотеза H0 отвергнута";
+        }
+    }
+}
 };
 }
+
+

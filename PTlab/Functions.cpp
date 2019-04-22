@@ -1,10 +1,11 @@
 #include "stdafx.h"
 
-RandValue::RandValue(double _m, double _d, int _n, int _numExp, int _z) {
+RandValue::RandValue(double _m, double _d, int _n, int _numExp, int _z, int _k) {
 	m = _m;
 	d = _d;
 	n = _n;
 	z = _z + 1;
+    k = _k + 1;
 	numExp = _numExp;
 	expN = n * m;
 	varN = n * d;
@@ -14,12 +15,14 @@ RandValue::RandValue(double _m, double _d, int _n, int _numExp, int _z) {
 	rangeCalc = 0;
     D = 0;
     ni = 0;
+    R0 = 0;
 	lambda = sqrt(1 / d);
 	offset = m - sqrt(d);
 	//meanN = n*(offset + log(2) / lambda);
 	E = new double[numExp];
 	segments = new double[z];
     f = new double[z];
+    boundaries = new double[k];
 }
 
 RandValue::~RandValue() {
@@ -77,6 +80,8 @@ void RandValue::experiment() {
 	range();
     calcSegments();
     calcD();
+    calcBoundaries();
+    calcR0();
 }
 
 double RandValue::densityOne(double x) {
@@ -141,6 +146,47 @@ void RandValue::calcSegments() {
     }
 }
 
+void RandValue::setBoundaries(double* _segments, int _z) {
+	delete[] boundaries;;
+	z = _z;
+    boundaries = new double[k];
+	for (int i = 0; i < k; i++)
+        boundaries[i] = _segments[i];
+}
+
+void RandValue::setK(int _k) {
+    delete[] boundaries;
+    k = _k;
+    boundaries = new double[k];
+}
+
+void RandValue::calcBoundaries() {
+    for (int i = 1; i < k-1; i++) {
+        boundaries[i] = E[0] + i * rangeCalc / (k - 2);
+    }
+    boundaries[0] = -INFINITY;
+    boundaries[k - 1] = INFINITY;
+}
+
+void RandValue::calcR0() {
+    double q = 0;
+    int *nj = new int[k];
+    nj[0] = 0;
+    for (int i = 1; i < k; i++) {
+        nj[i - 1] = 0;
+        for (int j = 0; j < numExp; j++) {
+            if (E[j] >= boundaries[i - 1] && E[j] < boundaries[i])
+                nj[i - 1]++;
+        }
+    }
+    R0 = 0;
+    for (int i = 1; i < k; i++) {
+        q = distFunc(boundaries[i]) - distFunc(boundaries[i - 1]);
+        R0 += (nj[i-1] - q * numExp)*(nj[i-1] - q * numExp) / (numExp*q);
+    }
+    delete[] nj;
+}
+
 void RandValue::calcD() {
     double D1 = 0, D2 = 0;
     for (int i = 1; i < numExp; i++) {
@@ -153,13 +199,29 @@ void RandValue::calcD() {
                 D = D2;
     }
 }
+
 void RandValue::histogram(double *_f) {
 	for (int i = 0; i < z; i++) {
 		f[i] = _f[i];
 	}
 }
 
+double RandValue::chiSquare(double r, double x) {
+    if (x > 0)
+        return std::pow(x, r / 2 - 1)*exp(-x / 2) / tgamma(r / 2) / std::pow(2, r / 2);
+    else
+        return 0;
 
+}
+
+double  RandValue::FR0(double r, double x) {
+    int n = (int)(x * 1000);
+    double h = x / n;
+    double res = 0;
+    for (int i = 0; i < n; i++)
+        res += (chiSquare(r, i*h) + chiSquare(r, (i + 1)*h))*h / 2;
+    return 1 - res;
+}
 System::Void clearGraph(ZedGraph::ZedGraphControl^ canvas) {
     if (canvas->GraphPane->CurveList->Count > 0)
     {
@@ -270,13 +332,18 @@ System::Void resizeTable(System::Windows::Forms::DataGridView^ Table) {
 }
 
 System::Void fillSegments(System::Windows::Forms::DataGridView^ Table, RandValue& r) {
-    //Table->Rows->Clear
-    //Table->Rows->Add();
     for (int i = 0; i < r.z ; i++)
         Table->Rows[0]->Cells[i]->Value = r.segments[i];
     resizeTable(Table);
 }
 
+System::Void fillBoundaries(System::Windows::Forms::DataGridView^ Table, RandValue& r) {
+    for (int i = 1; i < r.k-1; i++)
+        Table->Rows[0]->Cells[i]->Value = r.boundaries[i];
+    Table->Rows[0]->Cells[0]->Value = -INFINITY;
+    Table->Rows[0]->Cells[r.k-1]->Value = INFINITY;
+    resizeTable(Table);
+}
 System::Void outputValues(System::Windows::Forms::DataGridView^ Table1, 
 	                     System::Windows::Forms::DataGridView^ Table2, RandValue& r) {
 	Table1->Rows->Clear();
@@ -329,7 +396,7 @@ System::Void outputHist(System::Windows::Forms::DataGridView^ Table, RandValue& 
 		nj[i - 1] = 0;
 		for (int j = 0; j < r.numExp; j++) {
 			if (r.E[j] >= r.segments[i - 1] && r.E[j] < r.segments[i] ||
-                ( i == r.z-1 && r.E[j] >= r.segments[i - 1] && r.E[j] < r.segments[i]))
+                ( i == r.z-1 && r.E[j] >= r.segments[i - 1] && r.E[j] <= r.segments[i]))
 				nj[i - 1]++;
 		}
 	}
@@ -350,4 +417,27 @@ System::Void outputHist(System::Windows::Forms::DataGridView^ Table, RandValue& 
     r.maxErr = maxErr;
     resizeTable(Table);
     delete[] nj;
+}
+
+System::Void outputQj(System::Windows::Forms::DataGridView^ Table, RandValue& r) {
+    clearTable(Table);
+    for (int i = 1; i < r.k; i++) {
+        //if (i != r.z - 1)
+            Table->Columns->Add("Col" + System::Convert::ToString(i),
+                System::Convert::ToString(i) + ", [" +
+                System::Convert::ToString(r.boundaries[i - 1]) + ", " +
+                System::Convert::ToString(r.boundaries[i]) + ")");
+     /*   else
+            Table->Columns->Add("Col" + System::Convert::ToString(i),
+                System::Convert::ToString(i) + " , [" + System::Convert::ToString(r.boundaries[i - 1]) + ", " +
+                System::Convert::ToString(r.boundaries[i]) + "]");*/
+    }
+    Table->Rows->Add();
+    Table->Rows[0]->HeaderCell->Value = "Qj";
+    Table->AutoResizeRowHeadersWidth(
+        System::Windows::Forms::DataGridViewRowHeadersWidthSizeMode::AutoSizeToDisplayedHeaders);
+    for (int i = 1; i < r.k; i++) {
+        Table->Rows[0]->Cells[i-1]->Value = r.distFunc(r.boundaries[i]) - r.distFunc(r.boundaries[i - 1]);
+    }
+    resizeTable(Table);
 }
